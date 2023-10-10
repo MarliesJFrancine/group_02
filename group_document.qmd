@@ -7,6 +7,11 @@ editor: visual
 ## Group members
 
 #### Keisha Mercy Kyei Boateng
+Hello World! 
+```{r}
+numbers <- c(9,8,7,6)
+```
+
 
 #### Anne Gjelstrup
 
