@@ -15,6 +15,14 @@ numbers <- c(9,8,7,6)
 
 #### Anne Gjelstrup
 
+Hello everyone
+
+```{r}
+# comment
+
+```
+
+
 #### Marlies Jilles Francine Goedknegt
 
 #### Katja Naasunnguaq Jagd
