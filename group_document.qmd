@@ -7,17 +7,19 @@ editor: visual
 ## Group members
 
 #### Keisha Mercy Kyei Boateng
-Hello World! 
+
+Hello World!
+
 ```{r}
 numbers <- c(9,8,7,6)
 ```
-
 
 #### Anne Gjelstrup
 
 #### Marlies Jilles Francine Goedknegt
 
+group captain :)
+
 #### Katja Naasunnguaq Jagd
 
 #### Olivia Ronnenberg
-
