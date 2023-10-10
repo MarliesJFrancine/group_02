@@ -8,9 +8,25 @@ editor: visual
 
 #### Keisha Mercy Kyei Boateng
 
+Hello World!
+
+```{r}
+numbers <- c(9,8,7,6)
+```
+
 #### Anne Gjelstrup
 
+Hello everyone
+
+```{r}
+# comment
+
+```
+
+
 #### Marlies Jilles Francine Goedknegt
+
+group captain :)
 
 #### Katja Naasunnguaq Jagd
 
