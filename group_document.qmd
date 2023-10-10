@@ -23,7 +23,6 @@ Hello everyone
 
 ```
 
-
 #### Marlies Jilles Francine Goedknegt
 
 group captain :)
@@ -31,3 +30,9 @@ group captain :)
 #### Katja Naasunnguaq Jagd
 
 #### Olivia Ronnenberg
+
+Heey girls
+
+```{r}
+Olivia <- c(4,4,4)
+```
