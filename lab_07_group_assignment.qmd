@@ -69,7 +69,7 @@ pca_fit |>
 
 #### Analyze the rotation matrix
 
-The rotation matrix is stored as [pca_fit\$rotation]{style="color:red;"}, extracted by using the [tidy()]{style="color:blue;"} function from broom. When applied to prcomp objects, the [tidy()]{style="color:blue;"} function takes an additional argument matrix. Here, [matrix=rotation]{style="color:red;"} is set to extract the rotation matrix.
+The rotation matrix is stored as [rotation]{style="color:red;"}, extracted by using the [tidy()]{style="color:blue;"} function from broom. When applied to prcomp objects, the [tidy()]{style="color:blue;"} function takes an additional argument matrix. Here, [matrix=rotation]{style="color:red;"} is set to extract the rotation matrix.
 
 ```{r}
 #| label: rotation matrix
