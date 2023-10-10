@@ -27,6 +27,19 @@ Hello everyone
 
 group captain :)
 
+## new analysis
+
+some more text
+
+```{r}
+#| label: this is useless code
+
+counts <- c(1,2,3,4,5)
+total <- sum(counts)
+```
+
+
+
 #### Katja Naasunnguaq Jagd
 
 #### Olivia Ronnenberg
