@@ -8,8 +8,5 @@ Top 10 Data Science Languages of ALL Time:
 4. has
 3. different
 2. tastes
-<<<<<<< HEAD
-1. R is superiour!
-=======
-1. R is superior! 
->>>>>>> f651d2679d35c0a8f87e88eb248de4e1ed47bf10
+1. R is superior!
+
