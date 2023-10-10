@@ -1,26 +1,139 @@
 ---
 title: "group assignment"
+author: "Anna Boateng: s175562, Marlies Goedknegt: s220675, Anne Gjelstrup: s194530, Katja Jagd: s185395, Olivia Ronnenberg: s183359"
 format: html
 editor: visual
 ---
 
-## Quarto
+#### PCA tidyverse style
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+For this report, we follow along with the paper "PCA tidyverse style" by Claus O. Wilke, found here: <https://clauswilke.com/blog/2020/09/07/pca-tidyverse-style/>.
 
-## Running Code
+The paper is a walk-through on how to perform a PCA analysis using the [tidyverse]{style="color:red;"} in R.
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
+## Load the required packages
 
 ```{r}
-#| echo: false
-2 * 2
+# | label: packages
+# | echo: false
+
+library(tidyverse)
+library(broom)
+library(patchwork)
+
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Load the data
+
+The data for this analysis is the [biopsy]{style="color:purple;"} data set from the [MASS]{style="color:red;"} package. The data set contains data on breast cancer from the University of Wisconsin Hospitals, Madison. It contains data from a total of 699 patients, from who breast tumor biopsies were assessed; each of nine attributes was scored on a scale of 1 to 10. The true outcome (benign/malignant) is also known.
+
+```{r}
+#| label: data
+#| echo:false
+
+biopsy <- read_csv("https://wilkelab.org/classes/SDS348/data_sets/biopsy.csv")
+
+```
+
+## Analysis
+
+A PCA analysis consists of three general steps; (1) transfer the data in PC coordinates, (II) analyze the rotation matrix, and (III) analyze the variance explained by each PC.
+
+#### Transfer the data in PC coordinates
+
+The first step is to run the PCA analysis and store the result in a variable called [pca_fit]{style="color:purple;"}. There are two issues to consider here. First, the [prcomp()]{style="color:blue;"} function can only deal with numeric columns, therefore, all non-numeric columns are removed from the data. This is straightforward using the [where(is.numeric()]{style="color:blue;"} tidyselect construct. Second, we normally want to scale the data values to unit variance before PCA. We do so by using the argument [scale=TRUE]{style="color:red;"} in [prcomp()]{style="color:blue;"}.
+
+```{r}
+#| label: fitting PCA
+
+pca_fit <- biopsy |> 
+  select(where(is.numeric)) |> 
+  prcomp(scale = TRUE)
+
+```
+
+The PCA data can now be plotted in PC coordinates. This is done by combining the PC coordinates with the original data set. The columns containing the fitted coordinates are called [.fittedPC1]{style="color:red;"}, [.fittedPC2]{style="color:red;"}, etc.
+
+```{r}
+#| label: plotting the PCA
+
+pca_fit |> 
+  augment(biopsy) |> 
+  ggplot(aes(.fittedPC1, .fittedPC2, color = outcome)) + 
+  geom_point(size = 1.5) +
+  scale_color_manual(values = c(malignant = "#D55E00",
+                                benign = "#0072B2")) +
+  theme_minimal()
+
+```
+
+#### Analyze the rotation matrix
+
+The rotation matrix is stored as [pca_fit\$rotation]{style="color:red;"}, extracted by using the [tidy()]{style="color:blue;"} function from broom. When applied to prcomp objects, the [tidy()]{style="color:blue;"} function takes an additional argument matrix. Here, [matrix=rotation]{style="color:red;"} is set to extract the rotation matrix.
+
+```{r}
+#| label: rotation matrix
+#| include: false
+
+pca_fit |> 
+  tidy(matrix = "rotation")
+
+```
+
+```{r}
+#| label: plotting the rotation matrix
+
+arrow_style <- arrow(angle = 20,
+                     ends = "first",
+                     type = "closed",
+                     length = grid::unit(8, "pt"))
+
+pca_fit |> 
+  tidy(matrix = "rotation") |> 
+  pivot_wider(names_from = "PC",
+              names_prefix = "PC",
+              values_from = "value") |> 
+  ggplot(aes(PC1, PC2)) +
+  geom_segment(xend = 0,
+               yend = 0,
+               arrow = arrow_style) +
+  geom_text(aes(label = column),
+            hjust = 1, nudge_x = -0.02, 
+            color = "#904C2F") +
+  xlim(-1.25, .5) + ylim(-.5, 1) +
+  coord_fixed() +
+  theme_minimal()
+
+```
+
+#### Analyze the variance explained by each PC
+
+As a final step, the variance between each PC is plotted. This is again done by extracting the information using the [tidy()]{style="color:blue;"} function from broom, now by setting the matrix argument to [matrix=eigenvalues]{style="color:red;"}.
+
+```{r}
+#| label: variance
+#| include: false
+
+pca_fit |> 
+  tidy(matrix = "eigenvalues")
+
+```
+
+```{r}
+#| label: plotting the variance
+
+pca_fit |> 
+  tidy(matrix = "eigenvalues") |> 
+  ggplot(aes(PC, percent)) +
+  geom_col(fill = "#56B4E9",
+           alpha = 0.8) +
+  scale_x_continuous(breaks = 1:9) +
+  scale_y_continuous(labels = scales::percent_format(),
+                     expand = expansion(mult = c(0, 0.01))) +
+  theme_minimal()
+
+```
+
+## Conclusion
+
+The plot above indicates that the first component, PC1, captures \~65% of the variation in the data set. Moreover, the first plot indicates that this PC is sufficient to separate the benign from the malignant samples.
