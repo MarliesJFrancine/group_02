@@ -23,6 +23,16 @@ Hello everyone
 
 ```
 
+##### New feature (Anne)
+
+Some text.
+```{r}
+
+# Some code
+
+```
+
+
 #### Marlies Jilles Francine Goedknegt
 
 group captain :)
