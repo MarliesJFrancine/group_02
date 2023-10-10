@@ -14,6 +14,13 @@ Hello World!
 numbers <- c(9,8,7,6)
 ```
 
+#### New feature
+This is a new feature 
+```{r}
+# new feature 
+```
+
+
 #### Anne Gjelstrup
 
 Hello everyone
