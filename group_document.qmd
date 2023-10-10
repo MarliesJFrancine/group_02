@@ -10,17 +10,9 @@ editor: visual
 
 #### Anne Gjelstrup
 
-Hello :)
-
-```{r}
-
-Anne <- c(1,2,3,4)
-
-```
-
-
 #### Marlies Jilles Francine Goedknegt
 
 #### Katja Naasunnguaq Jagd
 
 #### Olivia Ronnenberg
+
